@@ -1,4 +1,3 @@
-//connnect db and start server in this file
 import app from "./server.js"
 import mongodb from "mongodb"
 import dotenv from "dotenv"
@@ -13,9 +12,13 @@ const port = process.env.PORT || 8000 //use the port spec in env or if unable to
 MongoClient.connect(
     process.env.RESTREVIEWS_DB_URI,
     {
+        useUnifiedTopology: true,
         poolSize: 50,
-        wtimeout: 2500,
         useNewUrlParser: true,
+        writeConcern: {
+            wtimeout: 2500,
+        },
+        
 
     }
 )
