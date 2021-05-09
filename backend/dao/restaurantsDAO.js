@@ -2,12 +2,13 @@ import mongodb from "mongodb"
 const ObjectId = mongodb.ObjectID
 let restaurants
 
+// method injectDB - how to initial connect to db
 export default class RestaurantsDAO {
   static async injectDB(conn) {
     if (restaurants) {
       return
     }
-    try {
+    try { //connect to his database for the collection restaurants
       restaurants = await conn.db(process.env.RESTREVIEWS_NS).collection("restaurants")
     } catch (e) {
       console.error(
@@ -16,13 +17,15 @@ export default class RestaurantsDAO {
     }
   }
 
+  // method to get list of all restaurants
   static async getRestaurants({
-    filters = null,
-    page = 0,
-    restaurantsPerPage = 20,
+    filters = null, //can add this to filter, pass a filter in to trigger more of the code below for filters
+    page = 0, //page specified if appl, default
+    restaurantsPerPage = 20, //get 20 at a time, default
   } = {}) {
     let query
-    if (filters) {
+    //these below will just depend on which filter was passed in
+    if (filters) { //if type of search is requested, i.e. search by name, more on queirying in mongo check resources in vid
       if ("name" in filters) {
         query = { $text: { $search: filters["name"] } }
       } else if ("cuisine" in filters) {
@@ -56,6 +59,7 @@ export default class RestaurantsDAO {
       return { restaurantsList: [], totalNumRestaurants: 0 }
     }
   }
+  // next method not discussed yet
   static async getRestaurantByID(id) {
     try {
       const pipeline = [
