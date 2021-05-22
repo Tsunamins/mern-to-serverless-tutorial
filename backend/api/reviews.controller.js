@@ -56,7 +56,7 @@ export default class ReviewsController {
   static async apiDeleteReview(req, res, next) {
     try {
       const reviewId = req.query.id
-      const userId = req.body.user_id
+      const userId = req.body.user_id // he adds this as a mock authentication - not a best practice just for building
       console.log(reviewId)
       const reviewResponse = await ReviewsDAO.deleteReview(
         reviewId,
