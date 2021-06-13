@@ -6,6 +6,7 @@ const router = express.Router()
 
 router.route("/").get(RestaurantsCtrl.apiGetRestaurants)
 //route for getting rest by id and all assoc reviews
+
 router.route("/id/:id").get(RestaurantsCtrl.apiGetRestaurantById)
 //route for populating list of avail cuisines to choose from
 router.route("/cuisines").get(RestaurantsCtrl.apiGetRestaurantCuisines)
